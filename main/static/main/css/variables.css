@@ -1,0 +1,31 @@
+:root {
+    /* Color Palette */
+    --primary-color: #0f172a; /* Deep Navy */
+    --secondary-color: #1e293b; /* Dark Slate Gray */
+    --accent-color: #10b981; /* Emerald Green */
+    --accent-hover: #059669;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --bg-dark: #020617;
+    --bg-card: #0f172a;
+    --border-color: #334155;
+
+    /* Typography */
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Spacing */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-sm: 1rem;     /* 16px */
+    --space-md: 2rem;     /* 32px */
+    --space-lg: 4rem;     /* 64px */
+    --space-xl: 8rem;     /* 128px */
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /* Transitions */
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

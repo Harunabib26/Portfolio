@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haruna Ibrahim | Full Stack Developer Portfolio</title>
+    <meta name="description"
+        content="Professional portfolio of Haruna Ibrahim, a Full Stack Developer specializing in Python, MySQL, and practical system design. Builder of AgricConnect.">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="{% static 'main/css/variables.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hero {
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.8)),
+            url("{% static 'main/assets/images/hero-bg.png' %}");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-img {
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), var(--bg-url);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-img-overlay {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">HI.DEV</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#architecture">How I Build</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="menu-toggle" id="menuToggle">
+                    <i data-lucide="menu"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-content">
+                <h1>Haruna Ibrahim</h1>
+                <p class="tagline">Full Stack Developer | Python & MySQL</p>
+                <p class="value-statement">
+                    I build scalable web systems that solve real-world problems in agriculture and business.
+                    Merging technical excellence with practical architectural design.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="{% static 'main/assets/resume/Haruna_Ibrahim_CV.pdf' %}" class="btn btn-secondary"
+                        download>Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="container" id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am an intermediate Full Stack Developer with a deep passion for building systems that have a
+                        tangible impact. My expertise lies in backend development using <strong>Python and
+                            MySQL</strong>, coupled with clean, efficient frontend implementations.</p>
+                    <p>My development philosophy is centered around <strong>efficiency, scalability, and solving
+                            real-world challenges</strong>. I don't just write code; I design systems that work for
+                        people.</p>
+                    <p>Currently, I am focused on building <strong>AgricConnect</strong>, a platform designed to
+                        revolutionize the agricultural supply chain by connecting farmers directly with service
+                        providers.</p>
+                    <p>I am also expanding my horizons into <strong>Flutter Engineering</strong> to bring my
+                        system-building expertise to mobile platforms.</p>
+                </div>
+                <div class="about-image">
+                    <div
+                        style="aspect-ratio: 1/1; background: linear-gradient(45deg, var(--accent-color), var(--primary-color)); border-radius: 20px; opacity: 0.2;">
+                        <img src="{% static 'main/assets/images/haruna.jpg' %}" alt="My Picturre" , width="550">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="container" id="skills">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-grid">
+                {% for category in skill_categories %}
+                <div class="skill-card">
+                    <h3>{{ category.name }}</h3>
+                    <div class="skill-list">
+                        {% for skill in category.skills.all %}
+                        <span class="skill-tag">{{ skill.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% empty %}
+                <p>No skills added yet. Add some in the Django admin!</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="container" id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                {% for project in projects %}
+                <article class="project-card">
+                    <div class="project-img"
+                        style="--bg-url: url('{% if project.image %}{{ project.image.url }}{% else %}{% static 'main/assets/images/agric-connect.jpg' %}{% endif %}');">
+                        <div class="project-img-overlay">
+                            <i data-lucide="layout" size="48"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>{{ project.title }}</h3>
+                        <p class="project-impact">{{ project.impact }}</p>
+                        <p class="project-description">{{ project.description }}</p>
+                        <div class="project-stack">
+                            {% for tech in project.get_stack_list %}
+                            <span class="skill-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="project-links">
+                            {% if project.demo_url %}
+                            <a href="{{ project.demo_url }}" class="btn btn-secondary btn-sm">Live Demo</a>
+                            {% endif %}
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-secondary btn-sm">
+                                <i data-lucide="github" style="width: 16px; height: 16px;"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+                {% empty %}
+                <p>No projects showcased yet. Add some in the Django admin!</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Practical Experience Section -->
+        <section class="container" id="experience">
+            <h2 class="section-title">Practical Experience</h2>
+            <div class="skills-grid">
+                {% for exp in experience %}
+                <article class="skill-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <h3>{{ exp.title }}</h3>
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">{{ exp.duration }}</span>
+                    </div>
+                    <p class="project-impact">{{ exp.impact }}</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 10px;">
+                        {{ exp.description }}
+                    </p>
+                </article>
+                {% empty %}
+                <p>No experiences listed yet. Add some in the Django admin!</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="container" id="architecture">
+            <h2 class="section-title">How I Build Systems</h2>
+            <div class="arch-card">
+                <div class="arch-header">
+                    <p>I approach software development with an engineering mindset, following a structured process to
+                        ensure quality and maintainability.</p>
+                </div>
+                <div class="arch-grid-main">
+                    <div class="arch-steps">
+                        <div class="step">
+                            <div class="step-icon">1</div>
+                            <h4>Analysis</h4>
+                            <p>Deep dive into requirements and problem definition.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">2</div>
+                            <h4>Design</h4>
+                            <p>Database modeling and system architecture planning.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">3</div>
+                            <h4>Develop</h4>
+                            <p>Agile backend & frontend implementation.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">4</div>
+                            <h4>Deploy</h4>
+                            <p>Testing, optimization, and production release.</p>
+                        </div>
+                    </div>
+                    <div class="arch-visual">
+                        <img src="{% static 'main/assets/images/schema.png' %}" alt="Database Schema Architecture"
+                            class="schema-img">
+                        <p class="caption">Sample Database Architecture for AgricConnect</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="container" id="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Let's build something together.</h3>
+                    <p>I'm currently available for freelance work and full-time opportunities.</p>
+                    <div class="contact-item">
+                        <i data-lucide="mail"></i>
+                        <span>harunabib26@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="map-pin"></i>
+                        <span>Abuja, Nigeria</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="github"></i>
+                        <span>github.com/haruna-ibrahim</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="linkedin"></i>
+                        <span>linkedin.com/in/haruna-ibrahim</span>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Haruna Ibrahim. Built with passion and precision.</p>
+        </div>
+    </footer>
+
+    <!-- JS Links -->
+    <script src="{% static 'main/js/main.js' %}"></script>
+    <script src="{% static 'main/js/animations.js' %}"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

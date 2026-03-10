@@ -33,10 +33,13 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [h.strip() for h in os.environ.get('ALLOWED_HOSTS', '').split(',') if h.strip()]
 
-# Add Render external hostname to ALLOWED_HOSTS automatically
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# Add PythonAnywhere hostname automatically if it's there
+PA_HOSTNAME = os.environ.get('PYTHONANYWHERE_DOMAIN') # We'll set this in the PA dashboard
+if PA_HOSTNAME:
+    ALLOWED_HOSTS.append(PA_HOSTNAME)
+else:
+    # Default for PythonAnywhere if you haven't set the env var yet
+    ALLOWED_HOSTS.append('harunabib26.pythonanywhere.com')
 
 
 # Application definition
